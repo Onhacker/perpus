@@ -85,6 +85,27 @@ class Admin_sirkulasi extends Admin_Controller {
         echo json_encode($output);
     }
 
+    function edit($id){
+        $data = array();
+        $res = $this->dm->get_by_id($id);
+        if($res->num_rows() > 0 ){
+            $data = $res->row_array();
+        } else {
+            $data = array();
+        }
+        $a1 = explode(" ", $data["tgl_peminjaman"]);
+        $data["tgl_peminjaman"] = flipdate($a1[0])." ".$a1[1];
+        $b = explode(" ", $data["tgl_pengembalian"]);
+        $data["tgl_pengembalian"] = flipdate($b[0])." ".$b[1];
+
+        // $data["tgl_peminjaman"] = flipdate($data["tgl_peminjaman"]);
+        // $data["tgl_pengembalian"] = flipdate($data["tgl_pengembalian"]);
+
+        echo json_encode($data);
+    }
+
+    
+    
     function update(){
         cek_session_akses("Admin_sirkulasi",$this->session->userdata('admin_session'));
         $data = $this->db->escape_str($this->input->post());
