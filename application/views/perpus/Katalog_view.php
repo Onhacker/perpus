@@ -29,7 +29,7 @@
                             </div>
                         </div>
                     </div>
-                    <table id="datable_1" class="table table-responsive " style="width:100%">
+                    <table id="datable_1" class="table table-borderless" style="width:100%">
                         <thead>
                             <tr>
 

@@ -49,15 +49,19 @@ class Katalog extends Onhacker_Controller {
 
             $row["kode_buku"] = $res->kode_buku;
             $row["judul_buku"] = '
-            <div class="card-box bg-pattern">
+           
             <div class="text-center">
             
+            <div class="progress mb-2" style="height: 2px;">
+            <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
             <img src="'.site_url('/katalog/bikin_barcode/'.$res->kode_buku).'" alt="logo" class="mb-1">
             <h4 class="mb-1 text-primary font-20">'.$res->judul_buku.'</h4>
             <p class="font-14 text-success mb-2 text-truncate">Pengarang : '.$res->nama_pengarang.'</p>
             </div>
 
-            <p class="font-14 text-center text-black">
+            <p class="font-14 text-center text-center text-black">
             '.$res->deskripsi.'
             </p>
 
@@ -92,7 +96,7 @@ class Katalog extends Onhacker_Controller {
             </div>
 
 
-            </div>
+          
             </div>' ;
            
             $data[] = $row;
