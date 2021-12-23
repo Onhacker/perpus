@@ -251,9 +251,11 @@ class Admin_sirkulasi extends Admin_Controller {
                     if ($tgl2 > $tgl1) {
                         $data["denda"] = 1;
                         $data["uang"] = $jarak->days * $this->om->web_me()->denda;
+                        $data["lewat"] = $jarak->days;
                     } else {
                     $data["denda"] = 0;
                     $data["uang"] = 0;
+                        $data["lewat"] = 0;
                     }
                 }
 
