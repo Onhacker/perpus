@@ -12,26 +12,29 @@
             <div class="card-box">
                 <?php if ($this->session->userdata("admin_login") == true and $this->session->userdata("admin_level") == "user") { ?>
                      
-                    <?php if ($res->num_rows() == 0) {?>
+                    <?php if ($res >= 0) { ?>
                         <?php 
                          $i = 0;
-                         foreach($res->result() as $row) :
-                            $tgl_peminjaman = explode(" ", $row->tgl_peminjaman);
-                            $tgl_pengembalian = explode(" ", $row->tgl_pengembalian);
-                            $tgl_dikembalikan = explode(" ", $row->tgl_dikembalikan);
                             $i++; ?>
-                            <div class="alert alert-light bg-light text-dark border-0" role="alert">
-                                <strong><?php echo $i.". ".$row->judul_buku." (".$row->kode_buku.")" ?></strong> — <code>Masa Pinjam : <?php echo tgl_indo($tgl_peminjaman[0])." ".$tgl_peminjaman[1]." s/d ".tgl_indo($tgl_pengembalian[0])." ".$tgl_pengembalian[1] ?></code>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="button-list ">
+                                        <a href="javascript:void(0);" onclick="cetak()" class="btn btn-block btn-lg btn-blue waves-effect waves-light rounded">
+                                            <i class="fa fa-search"></i> Cetak Kartu Bebas Pustaka
+                                        </a>
+
+                                    </div>
+                                </div>
                             </div>
-                        <?php endforeach; ?>
-                    <?php } else {?>
-                        <div class="alert alert-light bg-info text-white border-0" role="alert">
-                            Belum ada pinjaman
+                        
+                    <?php } else { ?>
+                        <div class="alert alert-light bg-danger text-white border-0" role="alert">
+                            Anda Masih Ada Buku Pinjaman
                         </div>
                     <?php } ?>   
 
 
-                <?php  } else {?>
+                <?php  } else { ?>
                     <div class="alert alert-light bg-danger text-white border-0" role="alert">
                         Info. Silahkan login sebagai member untuk melihat daftar pinjaman anda
                     </div>
@@ -43,6 +46,12 @@
     </div>
 
 
+<script type="text/javascript">
+     function cetak() {
+        awal = <?php echo  $this->session->userdata("admin_pkm","nim") ?>;
+        window.open("<?php echo site_url("kartu/pdf/"); ?>/"+awal)
+    }
+</script>
     <style type="text/css">
         @media only screen and (max-width: 480px) {
           img {

@@ -215,6 +215,12 @@ if ($this->uri->segment(1) == "home"  or $this->uri->segment(1) == "") {
                                 <li>
                                     <a href="<?php echo site_url("skripsi") ?>">Skripsi</a>
                                 </li>
+                                <?php if ($this->session->userdata("admin_level") == "user") {?>
+                                  <li>
+                                    <a href="<?php echo site_url("kartu") ?>">Cetak Kartu Pustaka</a>
+                                </li>
+                                <?php } ?>
+                                
                                 <li>
                                     <a href="<?php echo site_url("buku_tamu") ?>">Buku Tamu</a>
                                 </li>

@@ -52,6 +52,11 @@
                                     <label class="text-primary" for="example-email">Telepon</label>
                                     <input type="text" class="form-control" value="<?php echo (isset($record->no_telp))?$record->no_telp:"";  ?>"  id="no_telp" name="no_telp" placeholder="">
                                 </div>
+
+                                 <div class="form-group mb-3">
+                                    <label class="text-primary" for="example-email">Kepala Perpustakaan</label>
+                                    <input type="text" class="form-control" value="<?php echo (isset($record->kepala_perpus))?$record->kepala_perpus:"";  ?>"  id="kepala_perpus" name="kepala_perpus" placeholder="">
+                                </div>
                                
                                 
                                 <div class="form-group mb-3">
