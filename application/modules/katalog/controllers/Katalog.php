@@ -52,9 +52,9 @@ class Katalog extends Onhacker_Controller {
             <div class="font-14 text-success mb-2 text-truncate">
             Pengarang : '.$res->nama_pengarang.'
             </div>
-            <p align = "justify" class = "font-14"><b>Penerbit : </b><span>'.$res->nama_penerbit.'</span><br><b>Tahun Penerbit : </b><span>'.$res->tahun_terbit.'</span><br><b>Jumlah Unit : </b><span>'.$res->jumlah_unit.' buku</span>
-            - <span><b>Dipinjam</b> : '.$k.' buku</span>
-            - <span><b>Sisa</b> : '.$pinjam.' buku</span>
+            <p align = "justify" class = "font-14"><b>Penerbit : </b><span>'.$res->nama_penerbit.'</span><br><b>Tahun Penerbit : </b><span>'.$res->tahun_terbit.'</span><br><b>Jumlah Unit : </b><span>'.$res->jumlah_unit.' </span>
+            - <span><b>Dipinjam</b> : '.$k.' </span>
+            - <span><b>Sisa</b> : '.$pinjam.' </span>
             <br>
             <b>Deskripsi :</b>
             <br>
