@@ -92,7 +92,7 @@ if ($this->uri->segment(1) == "home"  or $this->uri->segment(1) == "") {
                    <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <?php if (empty($us->foto)) {?>
-                            <img src="<?php echo base_url('upload/users/user-1.jpg') ?>" alt="user-image" class="rounded-circle">
+                            <img src="<?php echo base_url('upload/users/us.png') ?>" alt="user-image" class="rounded-circle">
                         <?php } else {?>
                             <img src="<?php echo base_url('upload/users/'.$us->foto) ?>" alt="user-image" class="rounded-circle" id="foto_profil">
                         <?php } ?>
