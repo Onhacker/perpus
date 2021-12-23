@@ -12,7 +12,7 @@
             <div class="card-box">
                 <?php if ($this->session->userdata("admin_login") == true and $this->session->userdata("admin_level") == "user") { ?>
                      
-                    <?php if ($res >= 0) { ?>
+                    <?php if ($res == 0) { ?>
                         <?php 
                          $i = 0;
                             $i++; ?>
@@ -26,11 +26,12 @@
                                     </div>
                                 </div>
                             </div>
+                           
                         
                     <?php } else { ?>
-                        <div class="alert alert-light bg-danger text-white border-0" role="alert">
-                            Anda Masih Ada Buku Pinjaman
-                        </div>
+                         <div class="alert alert-light bg-danger text-white border-0" role="alert">
+                                Anda Masih Ada Buku Pinjaman
+                            </div>
                     <?php } ?>   
 
 

@@ -15,8 +15,10 @@ class Kartu extends Onhacker_Controller {
         	$this->db->where("nim",$this->session->userdata("admin_pkm"));
         	$this->db->where("status","1");
 
-        	$data["res"] = $this->db->get("sirkulasi")->num_rows();
+        	 $data["res"] = $this->db->get("sirkulasi")->num_rows();
         	// echo $this->db->last_query();
+
+        	// exit();
         }
         
         $data["content"] = $this->load->view(onhacker(get_class($this)),$data,true); 
