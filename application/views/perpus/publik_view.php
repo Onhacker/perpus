@@ -229,7 +229,7 @@ if ($this->uri->segment(1) == "home"  or $this->uri->segment(1) == "") {
                     <a href="<?php echo site_url("parner_link/berita") ?>"><i class="fe-external-link"></i>Link Berita </a>
                 </li>
                <li class="has-submenu">
-                    <a href="<?php echo site_url("daftar_pinjaman") ?>"><i class="fe-external-link"></i>Daftar Pinjaman </a>
+                    <a href="<?php echo site_url("daftar_pinjaman") ?>"><i class="fe-file-text"></i>Daftar Pinjaman </a>
                 </li>
 
         </ul>
