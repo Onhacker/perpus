@@ -5,6 +5,7 @@ style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: 
 
 <head>
 <meta name="viewport" content="width=device-width"/>
+<meta name="robots" content="noindex">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title><?php echo $title ?></title>
 
@@ -56,8 +57,7 @@ bgcolor="#f6f6f6">
                                 itemtype="http://schema.org/HttpActionHandler"
                                 style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
                                 valign="top">
-                                <a href="<?php echo $link_reset ?>" class="btn-primary" itemprop="url"
-                                   style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize; background-color: #6658dd; margin: 0; border-color: #6658dd; border-style: solid; border-width: 8px 16px;"><?php echo $btn ?></a>
+                              
                             </td>
                         </tr>
                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">

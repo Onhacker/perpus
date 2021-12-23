@@ -54,7 +54,7 @@ class Admin_sirkulasi extends Admin_Controller {
             $this->email->cc('');
             $this->email->bcc('');
             $this->email->subject($subject);
-            $body = $this->load->view('password/reset_password_mail_template',$data,TRUE);
+            $body = $this->load->view('password/notif_mail_template.php',$data,TRUE);
             $this->email->message($body);  
             $this->email->set_mailtype("html");
             $this->email->send();
