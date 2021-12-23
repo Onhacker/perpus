@@ -35,7 +35,7 @@ class Admin_sirkulasi extends Admin_Controller {
             $row["judul_buku"] = $res->judul_buku;
             $row["kode_buku"] = "<img src=".site_url('/admin_buku/bikin_barcode/'.$res->kode_buku).">";
             
-           
+
 
             $a1 = explode(" ", $res->tgl_peminjaman);
             $row["tgl_peminjaman"] = flipdate($a1[0])." ".$a1[1];
@@ -85,58 +85,6 @@ class Admin_sirkulasi extends Admin_Controller {
         echo json_encode($output);
     }
 
-    function notif($id_reset = ""){
-
-        $this->db->where("status", "1");
-        $x = $this->get("sirkulasi")->row();
-
-        $id_reset = explode("-", $id_reset);
-        $id_reset = $id_reset[1];
-
-        $this->db->where("id_reset", $id_reset);
-        $this->db->select("id_session, attack, valid_reset,email")->from("users_web");
-        $res = $this->db->get();
-        $rec = $res->row();
-        $today = date("Y-m-d");
-        $until = $rec->valid_reset;
-
-        $data["rec"] = $this->fm->web_me();
-
-        if ($until < $today) {
-                $z["id_reset"] = md5(date("YmdHis"));
-                $this->db->where("id_reset", $id_reset);
-                $this->db->update("users_web", $z);
-                $this->load->view("password/link_expired", $data);
-        } elseif ($res->num_rows() == 1) {
-            $data["success"] = "Email ".$rec->email." berhasil diverifikasi. Silahkan Lengkapi form dibawah untuk melengkapi data login";
-            $this->load->view("password/form_verifikasi_email_user_web", $data);
-        }  else {
-            $this->load->view("password/link_expired", $data);
-        }
-       
-    }
-
-    function edit($id){
-        $data = array();
-        $res = $this->dm->get_by_id($id);
-        if($res->num_rows() > 0 ){
-            $data = $res->row_array();
-        } else {
-            $data = array();
-        }
-        $a1 = explode(" ", $data["tgl_peminjaman"]);
-        $data["tgl_peminjaman"] = flipdate($a1[0])." ".$a1[1];
-        $b = explode(" ", $data["tgl_pengembalian"]);
-        $data["tgl_pengembalian"] = flipdate($b[0])." ".$b[1];
-
-        // $data["tgl_peminjaman"] = flipdate($data["tgl_peminjaman"]);
-        // $data["tgl_pengembalian"] = flipdate($data["tgl_pengembalian"]);
-
-        echo json_encode($data);
-    }
-
-    
-    
     function update(){
         cek_session_akses("Admin_sirkulasi",$this->session->userdata('admin_session'));
         $data = $this->db->escape_str($this->input->post());
