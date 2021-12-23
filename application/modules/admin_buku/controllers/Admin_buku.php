@@ -39,7 +39,7 @@ class Admin_buku extends Admin_Controller {
                 $row["deskripsi"] = "<p align = 'justify'>".$des.". <a href='#' onclick='sel(".$res->id_buku.") '>Selengkapnya ->></a> </p>";
             } else {
                 // $des = substr($res->deskripsi, 0,150);
-                $row["deskripsi"] = "<p align = 'justify'>".$des."</p>";
+                $row["deskripsi"] = "<p align = 'justify'>".$res->deskripsi."</p>";
             }
             
             $row["jumlah_unit"] = $res->jumlah_unit;
