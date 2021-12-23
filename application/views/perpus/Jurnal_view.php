@@ -40,7 +40,7 @@
         </div><!-- end col-->
     </div>
     <!-- end row-->
-    <?php $this->load->view("jurnal_js") ?>
+    <?php $this->load->view("Jurnal_js") ?>
 
     <div id="full-width-modal-des" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-full modal-dialog-scrollable" role="document">
