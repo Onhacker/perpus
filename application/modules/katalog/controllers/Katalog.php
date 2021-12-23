@@ -48,20 +48,51 @@ class Katalog extends Onhacker_Controller {
 
 
             $row["kode_buku"] = $res->kode_buku;
-            $row["judul_buku"] = '<h4 class = "text-primary mb-1">'.$res->judul_buku.'</h4>
-            <div class="font-14 text-success mb-2 text-truncate">
-            Pengarang : '.$res->nama_pengarang.'
+            $row["judul_buku"] = '
+            <div class="card-box bg-pattern">
+            <div class="text-center">
+            
+            <img src="'.site_url('/katalog/bikin_barcode/'.$res->kode_buku).'" alt="logo" class="mb-1">
+            <h4 class="mb-1 text-primary font-20">'.$res->judul_buku.'</h4>
+            <p class="font-14 text-success mb-2 text-truncate">Pengarang : '.$res->nama_pengarang.'</p>
             </div>
-            <p align = "justify" class = "font-14"><b>Penerbit : </b><span>'.$res->nama_penerbit.'</span><br><b>Tahun Penerbit : </b><span>'.$res->tahun_terbit.'</span><br><b>Jumlah Unit : </b><span>'.$res->jumlah_unit.' buku</span>
-            <br><span><b>Dipinjam</b> : '.$k.' buku</span>
-            <br><span><b>Sisa</b> : '.$pinjam.' buku</span>
-            <br>
-            <b>Deskripsi :</b>
-            <br>
-            <span class="text-black" >'.$res->deskripsi.'</span>
+
+            <p class="font-14 text-center text-black">
+            '.$res->deskripsi.'
             </p>
-            <div class="">
-            <img src="'.site_url('/katalog/bikin_barcode/'.$res->kode_buku).'">
+
+            <div class="text-center">
+            <p class="mb-1">
+            <span class="pr-2 text-nowrap mb-2 d-inline-block">
+            <i class="mdi mdi-octagram text-muted"></i>
+            <b>Penerbit</b> : '.$res->nama_penerbit.'
+            </span>
+            <span class="text-nowrap mb-2 d-inline-block">
+            <i class="mdi mdi-calendar-clock text-muted"></i>
+            <b>Tahun Terbit : </b> '.$res->tahun_terbit.'
+            </span>
+            </p>
+            </div>
+
+            <div class="row mt-1 text-center">
+            
+            <div class="col-4">
+            <h5 class="font-weight-normal text-black">Jumlah</h5>
+            <h4>'.$res->jumlah_unit.' buku</h4>
+            </div>
+
+            <div class="col-4">
+            <h5 class="font-weight-normal text-black">Dipinjam</h5>
+            <h4>'.$k.' buku</h4>
+            </div>
+
+            <div class="col-4">
+            <h5 class="font-weight-normal text-black">Sisa</h5>
+            <h4>'.$pinjam.' buku</h4>
+            </div>
+
+
+            </div>
             </div>' ;
            
             $data[] = $row;
