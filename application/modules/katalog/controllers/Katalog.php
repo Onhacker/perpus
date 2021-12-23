@@ -28,14 +28,33 @@ class Katalog extends Onhacker_Controller {
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $res) {
+            
+
             $no++;
             $row = array();
+            $this->db->where("status", "1");
+            $this->db->select("*");
+            $this->db->from("sirkulasi");
+            $this->db->where("id_buku", $res->id_buku);
+            $k = $this->db->get()->num_rows();
+
+            $pinjam = $res->jumlah_unit - $k;
+
+            if ($pinjam == $res->jumlah_unit) {
+                $pinjam = 0;
+            } else {
+                $pinjam = $res->jumlah_unit - $k;
+            }
+
+
             $row["kode_buku"] = $res->kode_buku;
             $row["judul_buku"] = '<h4 class = "text-primary mb-1">'.$res->judul_buku.'</h4>
             <div class="font-14 text-success mb-2 text-truncate">
             Pengarang : '.$res->nama_pengarang.'
             </div>
             <p align = "justify" class = "font-14"><b>Penerbit : </b><span>'.$res->nama_penerbit.'</span><br><b>Tahun Penerbit : </b><span>'.$res->tahun_terbit.'</span><br><b>Jumlah Unit : </b><span>'.$res->jumlah_unit.' buku</span>
+            <br><span><b>Dipinjam</b> : '.$k.' buku</span>
+            <br><span><b>Sisa</b> : '.$pinjam.' buku</span>
             <br>
             <b>Deskripsi :</b>
             <br>

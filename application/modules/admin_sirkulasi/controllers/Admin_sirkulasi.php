@@ -34,7 +34,9 @@ class Admin_sirkulasi extends Admin_Controller {
             $row["nama_mahasiswa"] = $res->nama_mahasiswa;
             $row["judul_buku"] = $res->judul_buku;
             $row["kode_buku"] = "<img src=".site_url('/admin_buku/bikin_barcode/'.$res->kode_buku).">";
+            
            
+
             $a1 = explode(" ", $res->tgl_peminjaman);
             $row["tgl_peminjaman"] = flipdate($a1[0])." ".$a1[1];
             $b = explode(" ", $res->tgl_pengembalian);
@@ -81,6 +83,37 @@ class Admin_sirkulasi extends Admin_Controller {
         );
         // echo $this->db->last_query();
         echo json_encode($output);
+    }
+
+    function notif($id_reset = ""){
+
+        $this->db->where("status", "1");
+        $x = $this->get("sirkulasi")->row();
+
+        $id_reset = explode("-", $id_reset);
+        $id_reset = $id_reset[1];
+
+        $this->db->where("id_reset", $id_reset);
+        $this->db->select("id_session, attack, valid_reset,email")->from("users_web");
+        $res = $this->db->get();
+        $rec = $res->row();
+        $today = date("Y-m-d");
+        $until = $rec->valid_reset;
+
+        $data["rec"] = $this->fm->web_me();
+
+        if ($until < $today) {
+                $z["id_reset"] = md5(date("YmdHis"));
+                $this->db->where("id_reset", $id_reset);
+                $this->db->update("users_web", $z);
+                $this->load->view("password/link_expired", $data);
+        } elseif ($res->num_rows() == 1) {
+            $data["success"] = "Email ".$rec->email." berhasil diverifikasi. Silahkan Lengkapi form dibawah untuk melengkapi data login";
+            $this->load->view("password/form_verifikasi_email_user_web", $data);
+        }  else {
+            $this->load->view("password/link_expired", $data);
+        }
+       
     }
 
     function edit($id){
