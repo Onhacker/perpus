@@ -46,6 +46,7 @@
                                 <th>Judul</th>
                                 <th>Pengarang</th>
                                 <th>Tahun</th>
+                                <th>Tgl. Diterima</th>
                                 <th>File</th>
                                           
                             </tr>
@@ -68,7 +69,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="form_app" method="post"  enctype="multipart/form-data" >
-                        <input type="hidden" name="id_jurnal" id="id_jurnal">
+                        <input type="hidden" name="id_skripsi" id="id_skripsi">
                         <div class="form-group mb-3">
                             <label class="text-primary">Judul</label>
                             <input class='form-control' name="judul" type="text" id="judul" autocomplete="off">
@@ -81,6 +82,11 @@
                             <label class="text-primary">Tahun Penelitian</label>
                             <input class='form-control' name="tahun" type="number" id="tahun" autocomplete="off">
                         </div>
+                        <div class="form-group mb-3">
+                            <label class="text-primary">Tanggal Diterima</label>
+                            <input class='form-control'  data-date-autoclose="true"  type="text" id="tgl_diterima" name = "tgl_diterima" autocomplete="off" readonly="">
+                        </div>
+
                          <div class="form-group mb-3">
                             <label class="text-primary" id="edit_text">File : </label>
                             <input type="file" name="file" id="gambar"  />
@@ -139,7 +145,15 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<script type="text/javascript">
+     $(document).ready(function(){
+        $('#tgl_diterima').datepicker({
+            format: 'dd-mm-yyyy',
 
+        });
+
+    })
+</script>
     <?php
     $this->load->view("backend/global_css");
     $this->load->view($controller."_js");

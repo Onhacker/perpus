@@ -213,6 +213,9 @@ if ($this->uri->segment(1) == "home"  or $this->uri->segment(1) == "") {
                                     <a href="<?php echo site_url("jurnal") ?>">Jurnal</a>
                                 </li>
                                 <li>
+                                    <a href="<?php echo site_url("skripsi") ?>">Skripsi</a>
+                                </li>
+                                <li>
                                     <a href="<?php echo site_url("buku_tamu") ?>">Buku Tamu</a>
                                 </li>
                             </ul>
@@ -315,7 +318,7 @@ if ($this->uri->segment(1) == "home"  or $this->uri->segment(1) == "") {
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/admin/js/jquery.easyui.min.js"></script>
 <script src="<?php echo base_url('assets/admin') ?>/js/jquery.form.js"></script>
 
-<?php if (strtolower($controller) == "katalog" or strtolower($controller) == "jurnal" ) {?>
+<?php if (strtolower($controller) == "katalog" or strtolower($controller) == "jurnal" or strtolower($controller) == "skripsi" ) {?>
     <script src="<?php echo base_url(); ?>assets/admin/datatables/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/admin/datatables/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/admin/bootstrap3-editable/js/bootstrap-editable.min.js"></script>

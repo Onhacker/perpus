@@ -26,7 +26,7 @@ if ($this->session->userdata("admin_level") == "admin") {
 
     <link href="<?php echo base_url("assets/admin") ?>/summernote/summernote-bs4.min.css" rel="stylesheet">
     <link href="<?php echo base_url('assets/admin') ?>/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
-    <?php if ($this->uri->segment(1) == "admin_log") { ?>
+    <?php if ($this->uri->segment(1) == "admin_log" or $this->uri->segment(1) == "admin_skripsi") { ?>
         <link href="<?php echo base_url(); ?>assets/admin/libs/clockpicker/bootstrap-clockpicker.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url(); ?>assets/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
 
@@ -210,6 +210,9 @@ if ($this->session->userdata("admin_level") == "admin") {
                                         <li>
                                             <a href="<?php echo site_url("admin_file") ?>">Jurnal</a>
                                         </li>
+                                         <li>
+                                            <a href="<?php echo site_url("admin_skripsi") ?>">Skripsi</a>
+                                        </li>
                                     </ul>
                                 </li>
                             </ul>
@@ -233,37 +236,45 @@ if ($this->session->userdata("admin_level") == "admin") {
 
                         
                         <?php } else {?>
-                           <li class="has-submenu">
-                            <a href="<?php echo site_url("home") ?>"><i class="fe-home"></i>Home </a>
-                        </li>
-                        <li class="has-submenu">
-                            <a href="<?php echo site_url("profil") ?>"><i class="fe-monitor"></i>Profil </a>
-                        </li>
-
-                        <li class="has-submenu">
-                            <a href="#"><i class="fe-git-commit"></i>Layanan Digital <div class="arrow-down"></div></a>
-                            <ul class="submenu">
+                          <li class="has-submenu">
+                    <a href="<?php echo site_url("home") ?>"><i class="fe-home"></i>Home </a>
+                </li>
+                <li class="has-submenu">
+                    <a href="<?php echo site_url("profil") ?>"><i class="fe-monitor"></i>Profil </a>
+                </li>
+                
+                 <li class="has-submenu">
+                    <a href="#"><i class="fe-git-commit"></i>Layanan Digital <div class="arrow-down"></div></a>
+                    <ul class="submenu">
+                        <li>
+                            <ul>
                                 <li>
-                                    <ul>
-                                        <li>
-                                            <a href="<?php echo site_url("jurnal") ?>">Jurnal</a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo site_url("buku_tamu") ?>">Buku Tamu</a>
-                                        </li>
-                                    </ul>
+                                    <a href="<?php echo site_url("jurnal") ?>">Jurnal</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url("skripsi") ?>">Skripsi</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url("buku_tamu") ?>">Buku Tamu</a>
                                 </li>
                             </ul>
-                        
-                        <li class="has-submenu">
-                            <a href="<?php echo site_url("katalog") ?>"><i class="fe-book"></i>Katalog </a>
                         </li>
-                        <li class="has-submenu">
-                            <a href="<?php echo site_url("parner_link/jurnal") ?>"><i class="fe-external-link"></i>Link Jurnal </a>
-                        </li>
-                        <li class="has-submenu">
-                            <a href="<?php echo site_url("parner_link/berita") ?>"><i class="fe-external-link"></i>Link Berita </a>
-                        </li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="<?php echo site_url("katalog") ?>"><i class="fe-book"></i>Katalog </a>
+                </li>
+                <li class="has-submenu">
+                    <a href="<?php echo site_url("parner_link/jurnal") ?>"><i class="fe-external-link"></i>Link Jurnal </a>
+                </li>
+                <li class="has-submenu">
+                    <a href="<?php echo site_url("parner_link/berita") ?>"><i class="fe-external-link"></i>Link Berita </a>
+                </li>
+               <li class="has-submenu">
+                    <a href="<?php echo site_url("daftar_pinjaman") ?>"><i class="fe-file-text"></i>Daftar Pinjaman </a>
+                </li>
+
+                
                         <?php } ?>
 
 
@@ -354,7 +365,7 @@ if ($this->session->userdata("admin_level") == "admin") {
        
 
        
-        <?php if (strtolower($controller) == "admin_prodi" or strtolower($controller) == "admin_jurusan" or strtolower($controller) == "admin_user" or strtolower($controller) == "admin_fakultas" or strtolower($controller) == "admin_buku" or strtolower($controller) == "admin_log" or strtolower($controller) == "admin_link_berita" or strtolower($controller) == "admin_link_jurnal" or strtolower($controller) == "admin_sirkulasi" or strtolower($controller) == "admin_file") {?>
+        <?php if (strtolower($controller) == "admin_prodi" or strtolower($controller) == "admin_jurusan" or strtolower($controller) == "admin_user" or strtolower($controller) == "admin_fakultas" or strtolower($controller) == "admin_buku" or strtolower($controller) == "admin_log" or strtolower($controller) == "admin_link_berita" or strtolower($controller) == "admin_link_jurnal" or strtolower($controller) == "admin_sirkulasi" or strtolower($controller) == "admin_file" or strtolower($controller) == "admin_skripsi") {?>
             <script src="<?php echo base_url("assets/admin/") ?>libs/flatpickr/flatpickr.min.js"></script>
              <script src="<?php echo base_url("assets/admin/") ?>libs/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
             <script src="<?php echo base_url("assets/admin") ?>/libs/tippy-js/tippy.all.min.js"></script>
