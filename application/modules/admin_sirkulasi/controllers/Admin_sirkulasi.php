@@ -66,7 +66,7 @@ class Admin_sirkulasi extends Admin_Controller {
             $config['mailtype'] = 'html';
             $res = $this->email->initialize($config);
 
-           // echo  $rules = "Link Reset Password telah dikirim ke Email ". $x->email." Silahkan cek inbox atau spam";
+           echo  $rules = "Link Reset Password telah dikirim ke Email ". $x->email." Silahkan cek inbox atau spam";
 
         }
 
