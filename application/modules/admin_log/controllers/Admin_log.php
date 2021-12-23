@@ -89,10 +89,22 @@ class Admin_log extends Admin_Controller {
         $data["awal"] = $awal;
         $data["akhir"] = $akhir;
 
-        $this->db->where('tanggal BETWEEN "'. flipdate($data["awal"]). ' 00:00:00" and "'. flipdate($data["akhir"]).' 23:59:59"');
-        $this->db->order_by('tanggal', 'DESC');
+        $this->db->where("denda","1");
+        $this->db->where('tgl_dikembalikan BETWEEN "'. flipdate($data["awal"]). ' 00:00:00" and "'. flipdate($data["akhir"]).' 23:59:59"');
+        $this->db->order_by('tgl_dikembalikan', 'DESC');
         
-        $data["res"] = $this->db->get("buku_tamu");
+        $data["res"] = $this->db->get("sirkulasi");
+
+        $this->db->select("sum(uang) as jumlah_denda");
+        $this->db->from("sirkulasi");
+        $this->db->where("denda","1");
+        $this->db->where('tgl_dikembalikan BETWEEN "'. flipdate($data["awal"]). ' 00:00:00" and "'. flipdate($data["akhir"]).' 23:59:59"');
+        $this->db->order_by('tgl_dikembalikan', 'DESC');
+        
+        $de = $this->db->get()->row();
+        $data["jumlah_denda"] = $de->jumlah_denda;
+
+
         // echo $this->db->last_query();
         // exit();
         $data['header'] = $data["title"];
@@ -115,7 +127,7 @@ class Admin_log extends Admin_Controller {
         $pdf->AddPage("L", "F4");
 
 
-        $html = $this->load->view(get_class($this)."_laporan_buku_tamu_pdf",$data,true);
+        $html = $this->load->view(get_class($this)."_laporan_keuangan_pdf",$data,true);
         $pdf->writeHTML($html, true, false, true, false, '');
         $pdf->lastPage();
 

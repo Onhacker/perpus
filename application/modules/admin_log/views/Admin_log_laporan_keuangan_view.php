@@ -29,7 +29,7 @@
                       <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="cwebsite">Tanggal Awal</label>
+                                <label for="cwebsite">Tanggal Pengembalian Awal</label>
                                 <input class='form-control' value="<?php echo tgl_view($hari_ini) ?>" data-date-autoclose="true"  type="text" id="range_awal"  autocomplete="off">
 
                             </div>
@@ -41,7 +41,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="cwebsite">Tanggal Akhir</label>
+                                <label for="cwebsite">Tanggal Pengembalian Akhir</label>
                                 <input class='form-control' data-date-autoclose="true" value="<?php echo tgl_view(date("Y-m-d")) ?>"  type="text" id="range_akhir"  autocomplete="off">
                             </div>
                         </div>

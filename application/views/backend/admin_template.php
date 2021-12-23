@@ -226,6 +226,9 @@ if ($this->session->userdata("admin_level") == "admin") {
                                         <li>
                                             <a href="<?php echo site_url("admin_log/") ?>">Pengembalian Buku</a>
                                         </li>
+                                         <li>
+                                            <a href="<?php echo site_url("admin_log/laporan_keuangan") ?>">Laporan Keuangan</a>
+                                        </li>
                                         <li>
                                             <a href="<?php echo site_url("admin_log/laporan_buku_tamu") ?>">Buku Tamu</a>
                                         </li>
