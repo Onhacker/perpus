@@ -42,7 +42,7 @@
         </div><!-- end col-->
     </div>
     <!-- end row-->
-    <?php $this->load->view("katalog_js") ?>
+    <?php $this->load->view("Katalog_js") ?>
 
     <style type="text/css">
         @media only screen and (max-width: 480px) {
