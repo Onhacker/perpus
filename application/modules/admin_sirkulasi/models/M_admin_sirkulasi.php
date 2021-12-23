@@ -9,6 +9,7 @@ class M_admin_sirkulasi extends CI_Model {
 		parent::__construct();
 	}
 	private function get_data_query(){
+		$this->db->where("status","0");
 		$this->db->from($this->table);
 
 		$i = 0;
