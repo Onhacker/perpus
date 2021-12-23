@@ -5,7 +5,7 @@ class M_admin_user extends CI_Model {
 	var $table = 'users';
 	var $column_order = array('','','nim','nama_lengkap','no_telp','email','nama_fakultas','nama_jurusan','nama_prodi','angkatan');
 	var $column_search = array('nim','nama_lengkap','no_telp','email','nama_fakultas','nama_jurusan','nama_prodi','angkatan'); 
-	var $order = array('tanggal_reg' => 'DESC');
+	var $order = array('id_user' => 'DESC');
 	public function __construct(){
 		parent::__construct();
 	}
