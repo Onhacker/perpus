@@ -34,6 +34,7 @@ class Admin_sirkulasi extends Admin_Controller {
             $row["nama_mahasiswa"] = $res->nama_mahasiswa;
             $row["judul_buku"] = $res->judul_buku;
             $row["kode_buku"] = "<img src=".site_url('/admin_buku/bikin_barcode/'.$res->kode_buku).">";
+           
             $a1 = explode(" ", $res->tgl_peminjaman);
             $row["tgl_peminjaman"] = flipdate($a1[0])." ".$a1[1];
             $b = explode(" ", $res->tgl_pengembalian);
@@ -232,6 +233,30 @@ class Admin_sirkulasi extends Admin_Controller {
     function kembalikan(){
         $list_id = $this->input->post('id');
         foreach ($list_id as $id) {
+            $this->db->where("id_sirkulasi", $id);
+            $res = $this->db->get("sirkulasi")->row();
+
+               $a1 = explode(" ", $res->tgl_peminjaman);
+               $row["tgl_peminjaman"] = flipdate($a1[0])." ".$a1[1];
+               $b = explode(" ", $res->tgl_pengembalian);
+               $row["tgl_pengembalian"] = flipdate($b[0])." ".$b[1];
+
+               $b = explode(" ", $res->tgl_dikembalikan);
+               $row["tgl_dikembalikan"] = flipdate($b[0])."<br>".$b[1];
+
+               $tgl1 = new DateTime($res->tgl_pengembalian);
+               $tgl2 = new DateTime(date("Y-m-d H:i:s"));
+               $jarak = $tgl2->diff($tgl1);
+               if ($res->status == 1) { 
+                    if ($tgl2 > $tgl1) {
+                        $data["denda"] = 1;
+                        $data["uang"] = $jarak->days * $this->om->web_me()->denda;
+                    } else {
+                    $data["denda"] = 0;
+                    $data["uang"] = 0;
+                    }
+                }
+
             $data["tgl_dikembalikan"] = date("Y-m-d H:i:s");
             $data["status"] =  0;
             $this->db->where("id_sirkulasi",$id);

@@ -94,6 +94,10 @@
                                     </div>
                                 </div>
                                  <div class="form-group mb-3">
+                                    <label class="text-primary" for="example-email">Denda Jika Melewati batas Pengembalian Buku (Rp)/ Hari</label>
+                                    <input type="number" class="form-control" value="<?php echo (isset($record->denda))?$record->denda:"";  ?>"  id="denda" name="denda" placeholder="">
+                                </div>
+                                 <div class="form-group mb-3">
                                     <label class="text-primary" for="example-email">Deskripsi Web</label>
                                     <input type="text" class="form-control" value="<?php echo (isset($record->meta_deskripsi))?$record->meta_deskripsi:"";  ?>"  id="meta_deskripsi" name="meta_deskripsi" placeholder="">
                                 </div>
