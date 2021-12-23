@@ -20,30 +20,30 @@
 							<ol class="carousel-indicators">
 								<li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
 								<li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-								<li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+								<!-- <li data-target="#carouselExampleCaptions" data-slide-to="2"></li> -->
 							</ol>
 							<div class="carousel-inner" role="listbox">
 								<div class="carousel-item active">
-									<img class="d-block img-fluid" src="<?php echo base_url("assets/images/small/img-1.jpg") ?>" alt="First slide" />
+									<img class="d-block img-fluid" src="<?php echo base_url("assets/images/small/1.png") ?>" alt="First slide" />
 									<div class="carousel-caption d-none d-md-block">
-										<h3 class="text-white">First slide label</h3>
-										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+										<!-- <h3 class="text-white">First slide label</h3> -->
+										<!-- <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p> -->
 									</div>
 								</div>
 								<div class="carousel-item">
-									<img class="d-block img-fluid" src="<?php echo base_url("assets/images/small/img-2.jpg") ?>" alt="Second slide" />
+									<img class="d-block img-fluid" src="<?php echo base_url("assets/images/small/2.png") ?>" alt="Second slide" />
 									<div class="carousel-caption d-none d-md-block">
-										<h3 class="text-white">Second slide label</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+										<!-- <h3 class="text-white">Second slide label</h3> -->
+										<!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
 									</div>
 								</div>
-								<div class="carousel-item">
+								<!-- <div class="carousel-item">
 									<img class="d-block img-fluid" src="<?php echo base_url("assets/images/small/img-3.jpg") ?>" alt="Third slide" />
 									<div class="carousel-caption d-none d-md-block">
 										<h3 class="text-white">Third slide label</h3>
 										<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
 									</div>
-								</div>
+								</div> -->
 							</div>
 							<a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
 								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -65,18 +65,18 @@
 							<ol class="carousel-indicators">
 								<li data-target="#carouselExample" data-slide-to="0" class="active"></li>
 								<li data-target="#carouselExample" data-slide-to="1"></li>
-								<li data-target="#carouselExample" data-slide-to="2"></li>
+								<!-- <li data-target="#carouselExample" data-slide-to="2"></li> -->
 							</ol>
 							<div class="carousel-inner" role="listbox">
 								<div class="carousel-item active">
-									<img class="d-block img-fluid" src="<?php echo base_url("assets/images/small/img-4.jpg") ?>" alt="First slide" />
+									<img class="d-block img-fluid" src="<?php echo base_url("assets/images/small/3.png") ?>" alt="First slide" />
 								</div>
 								<div class="carousel-item">
-									<img class="d-block img-fluid" src="<?php echo base_url("assets/images/small/img-5.jpg") ?>" alt="Second slide" />
+									<img class="d-block img-fluid" src="<?php echo base_url("assets/images/small/4.png") ?>" alt="Second slide" />
 								</div>
-								<div class="carousel-item">
+								<!-- <div class="carousel-item">
 									<img class="d-block img-fluid" src="<?php echo base_url("assets/images/small/img-6.jpg") ?>" alt="Third slide" />
-								</div>
+								</div> -->
 							</div>
 						</div>
 						<!-- END carousel-->
