@@ -17,6 +17,14 @@ class Admin_profil extends Admin_Controller {
 		$this->render($data);
 	}
 
+	function reload(){
+		if ($this->session->userdata("admin_level") == "admin") {
+			redirect("admin_dashboard");
+		} else {
+			redirect(site_url());
+		}
+	}
+
 	function load_profil(){
 		$data = array();
 		$res  = $this->om->profil();

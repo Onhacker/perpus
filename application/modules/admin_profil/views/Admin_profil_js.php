@@ -151,7 +151,7 @@
     }
 
     function home(){
-        window.location.href="<?php echo site_url("admin_dashboard") ?>";
+        window.location.href="<?php echo site_url("admin_profil/reload") ?>";
     }
 
     // $(window).bind('beforeunload', function(){
