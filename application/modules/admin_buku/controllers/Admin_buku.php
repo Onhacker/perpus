@@ -34,6 +34,23 @@ class Admin_buku extends Admin_Controller {
             $row["nama_pengarang"] = $res->nama_pengarang;
             $row["nama_penerbit"] = $res->nama_penerbit;
             $row["tahun_terbit"] = $res->tahun_terbit;
+            $this->db->where("status", "1");
+            $this->db->select("*");
+            $this->db->from("sirkulasi");
+            $this->db->where("id_buku", $res->id_buku);
+            $k = $this->db->get()->num_rows();
+
+            $pinjam = $res->jumlah_unit - $k;
+
+            if ($pinjam == $res->jumlah_unit) {
+                $pinjam = 0;
+            } else {
+                $pinjam = $res->jumlah_unit - $k;
+            }
+
+            $row["pinjam"]  = $k;
+            $row["sisa"]  = $pinjam;
+
             if (strlen($res->deskripsi) >= 130) {
                 $des = substr($res->deskripsi, 0,130);
                 $row["deskripsi"] = "<p align = 'justify'>".$des.". <a href='#' onclick='sel(".$res->id_buku.") '>Selengkapnya ->></a> </p>";
@@ -42,7 +59,7 @@ class Admin_buku extends Admin_Controller {
                 $row["deskripsi"] = "<p align = 'justify'>".$res->deskripsi."</p>";
             }
             
-            $row["jumlah_unit"] = $res->jumlah_unit;
+            $row["jumlah_unit"] = "Jumlah Unit : ".$res->jumlah_unit."<br>Dipinjam : ".$k."<br>Sisa : ".$pinjam;
             $row["id_buku"] = $res->id_buku;
             $kode = $res->kode_buku;
             $row["kode"] = "<img src=".site_url('/admin_buku/bikin_barcode/'.$kode).">";

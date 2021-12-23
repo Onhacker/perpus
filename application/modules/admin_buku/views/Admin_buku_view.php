@@ -49,7 +49,7 @@
                             <th width="10%%">Pengarang</th>
                             <th width="10%">Penerbit</th>
                             <th width="4%">Tahun Terbit</th>
-                            <th width="2%">Jumlah Unit</th> 
+                            <th width="10%">Jumlah Unit</th> 
                             <th width="30%">Deskripsi</th>              
                             <th width="15%">Kode</th>              
                         </tr>
