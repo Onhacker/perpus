@@ -21,7 +21,57 @@ class Admin_sirkulasi extends Admin_Controller {
         $this->zend->load('Zend/Barcode');
         Zend_Barcode::render('code128', 'image', array('text'=>$kode), array());
     }
+    function notif(){
+        $this->load->library("email");
+        $this->db->where("status", "1");
+        $x = $this->db->get("sirkulasi")->row();
 
+        $b = explode(" ", $x->tgl_pengembalian);
+        $tgl_pengembalian = flipdate($b[0])." ".$b[1];
+
+        $tgl1 = new DateTime($x->tgl_pengembalian);
+        $tgl2 = new DateTime(date("Y-m-d H:i:s"));
+        $jarak = $tgl2->diff($tgl1);
+
+        if ($jarak->days == 1) {
+                // set pengirim
+            $this->db->where("id_identitas", "1");
+            $web = $this->db->get("identitas")->row();
+
+                // isi body pesan 
+            $data["title"] = "Reset Password";
+            $data["p1"] = "Hai ".$x->nama_mahasiswa.". Anda masih ada buku yang belum Dikembalikan";
+            $data["p2"] = "Judul Buku ".$x->judul_buku." dengan batas tanggal pengembalian ". tgl_view($tgl_pengembalian) ;
+            $data["btn"] = "Kunjungi web";
+            $data["link_reset"] = " ";
+            $data["web"] = "<a href=".$web->url.">".$web->nama_website."</a>";
+                // end of isi body
+
+            $email                  = $x->email;
+            $subject                = "Pengembalian Buku ".$x->judul_buku;
+            $this->email->from($web->email, $web->nama_website);
+            $this->email->to($email);
+            $this->email->cc('');
+            $this->email->bcc('');
+            $this->email->subject($subject);
+            $body = $this->load->view('password/reset_password_mail_template',$data,TRUE);
+            $this->email->message($body);  
+            $this->email->set_mailtype("html");
+            $this->email->send();
+
+            $config['protocol'] = 'sendmail';
+            $config['mailpath'] = '/usr/sbin/sendmail';
+            $config['charset'] = 'utf-8';
+            $config['wordwrap'] = TRUE;
+            $config['mailtype'] = 'html';
+            $res = $this->email->initialize($config);
+
+           // echo  $rules = "Link Reset Password telah dikirim ke Email ". $x->email." Silahkan cek inbox atau spam";
+
+        }
+
+        // echo json_encode($ret);
+    }
 	function get_data(){  
         $list = $this->dm->get_data();
         $data = array();
