@@ -44,10 +44,11 @@ class Admin_profil extends Admin_Controller {
 		$this->form_validation->set_rules('nama_lengkap','Nama Mahasiswa','required');  
 		if ($this->session->userdata("admin_level") != "admin") {
 			 $this->form_validation->set_rules('nim','NIM','trim|required|numeric');  
+			 $this->form_validation->set_rules('alamat','Alamat','trim|required'); 
 		}
        
         $this->form_validation->set_rules('email','Email','trim|required|valid_email'); 
-        $this->form_validation->set_rules('alamat','Alamat','trim|required'); 
+        
 		$this->form_validation->set_rules('no_telp','No Telpon','trim|numeric|required|min_length[10]|max_length[12]'); 
 		$this->form_validation->set_message('required', '* %s Harus diisi ');
 		$this->form_validation->set_message('numeric', '* %s Harus angka ');
