@@ -32,7 +32,9 @@ class Admin_sirkulasi extends Admin_Controller {
     }
 
     function wa($nim){
-         $this->db->limit(1);
+        $n = (date("Y-m-d H:i:s"));
+         // $this->db->limit(1);
+         $this->db->where("datediff(tgl_pengembalian, '$n') = 1");
          $this->db->where("nim",$nim);
          $this->db->where("status", "1");
          $this->db->where("tgl_dikembalikan", "0000-00-00 00:00:00");
@@ -40,6 +42,7 @@ class Admin_sirkulasi extends Admin_Controller {
          $d = $x->row();
         //   echo "<br>".$d->judul_buku."<br>";
         // echo $this->db->last_query();
+        // exit();
          $this->db->where("nim",$d->nim);
          $this->db->select("no_telp")->from("users");
          $t = $this->db->get()->row();
