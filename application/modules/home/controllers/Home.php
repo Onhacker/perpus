@@ -19,10 +19,10 @@ class Home extends Onhacker_Controller {
 	}
 
 	function wa(){
-		$telepon = "085288886853";
+		$telepon = "6285288886853";
 		$message = "tes kirim wa";
 		$curl = curl_init();
-				$token = "";
+				$token = "3PT7MarvSGrLFYBWfDefa5rQCagjpWsBhjchS6etlp0n6FLU9oAPKOGpNawOzeO1";
                 $data = [
                     'phone' => "$telepon",
                     'message' => "$message",
@@ -36,7 +36,8 @@ class Home extends Onhacker_Controller {
                 curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
-                curl_setopt($curl, CURLOPT_URL, 'https://kacangan.wablas.com')."/3PT7MarvSGrLFYBWfDefa5rQCagjpWsBhjchS6etlp0n6FLU9oAPKOGpNawOzeO1/send-message";
+                curl_setopt($curl, CURLOPT_URL, "https://kacangan.wablas.com/api/v2/send-bulk/text");
+                // curl_setopt($curl, CURLOPT_URL, 'https://kacangan.wablas.com')."/api/send-message";
                 curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
                 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
                 $result = curl_exec($curl);
