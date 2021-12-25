@@ -19,57 +19,127 @@ class Home extends Onhacker_Controller {
 	}
 
 	function wax(){
-         $this->db->limit(1);
+		$this->db->where("id_identitas", "1");
+         $web = $this->db->get("identitas")->row();
+         // $this->db->limit(1);
          $this->db->where("status", "1");
          $this->db->where("tgl_dikembalikan", "0000-00-00 00:00:00");
          $x = $this->db->get("sirkulasi");
-         $d = $x->row();
-        //   echo "<br>".$d->judul_buku."<br>";
+         // $d = $x->row();
+
+         foreach ($x->result() as $d):
+         	//   echo "<br>".$d->judul_buku."<br>";
         // echo $this->db->last_query();
-         $this->db->where("nim",$d->nim);
-         $this->db->select("no_telp")->from("users");
-         $t = $this->db->get()->row();
-         // echo $this->db->last_query();
-         $telepon = format_telpon($t->no_telp);
+         	$this->db->where("nim",$d->nim);
+         	$this->db->select("no_telp")->from("users");
+         	$t = $this->db->get()->row();
+        	// echo $this->db->last_query()."<br>";
+         	$telepon = format_telpon($t->no_telp);
 
-         $b = explode(" ", $d->tgl_pengembalian);
-         $tgl_pengembalian = flipdate($b[0])." ".$b[1];
+         	$b = explode(" ", $d->tgl_pengembalian);
+         	$tgl_pengembalian = flipdate($b[0])." ".$b[1];
 
-         $tgl1 = new DateTime($d->tgl_pengembalian);
-         $tgl2 = new DateTime(date("Y-m-d H:i:s"));
-         $jarak = $tgl2->diff($tgl1);
+         	$tgl1 = new DateTime($d->tgl_pengembalian);
+         	$tgl2 = new DateTime(date("Y-m-d H:i:s"));
+         	$jarak = $tgl2->diff($tgl1);
 
-         $this->db->where("id_identitas", "1");
-         $web = $this->db->get("identitas")->row();
+	         	if ($jarak->days == 1) {
+	         		// echo $d->judul_buku."<br>";
+	         		// $jr = 
+	         		// " 'phone' => '".$telepon."' ,"
+	         		// ." 'message' => 'Halo ".$d->nama_mahasiswa." Member ".$web->nama_website.". Anda memiliki pinjaman buku yang harus dikembalikan pada tanggal * ".$tgl_pengembalian."* yang berjudul * ".$d->judul_buku."* ' ,   " ;
 
-         $message = "Halo ".$d->nama_mahasiswa." Member ".$web->nama_website.". Anda memiliki pinjaman buku yang harus dikembalikan pada tanggal *".($tgl_pengembalian)."* yang berjudul *".$d->judul_buku."*";
-         echo "as ".$jarak->days;
-         if ($jarak->days == 1) {
-            $curl = curl_init();
-            $token = "3PT7MarvSGrLFYBWfDefa5rQCagjpWsBhjchS6etlp0n6FLU9oAPKOGpNawOzeO1";
-            $data = [
-                'phone' => "$telepon",
-                'message' => "$message",
-            ];
+	         		$payloadx[] = array(
+	                'phone' => $telepon,
+	                'message'     => "Halo ".$d->nama_mahasiswa." Member ".$web->nama_website.". Anda memiliki pinjaman buku yang harus dikembalikan pada tanggal *".($tgl_pengembalian)."* yang berjudul *".$d->judul_buku."*",
+	               	'secret' => false, // or true
+			        'priority' => false // or true   
+	            );
+	     
+         	}
+         	
+         endforeach;
+         	$output = array(
+        		"data" => $payloadx,
+        	);
+        	// echo json_encode($output);
+         // exit();
+        
 
-            curl_setopt($curl, CURLOPT_HTTPHEADER,
-                array(
-                    "Authorization: $token",
-                )
-            );
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
-            curl_setopt($curl, CURLOPT_URL, "https://kacangan.wablas.com/api/send-message");
-            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-            $result = curl_exec($curl);
-            curl_close($curl);
-            echo "<pre>";
-            print_r($result);
+         
+
+         // $message = "Halo ".$d->nama_mahasiswa." Member ".$web->nama_website.". Anda memiliki pinjaman buku yang harus dikembalikan pada tanggal *".($tgl_pengembalian)."* yang berjudul *".$d->judul_buku."*";
+         // echo "as ".$jarak->days;
+         // if ($jarak->days == 1) {
+
+         	$curl = curl_init();
+			$token = "vPDwq2Xv4sCpjlklwbpVEdlOztUXFR4KBiiiSHh72Vbn3th2Y0vBnuLe33frEwwS";
+			$payload = [
+			    "data" => [
+			        
+			        [
+			            'phone' => '6285203954888',
+			            'message' => 'try message 1',
+			            'secret' => false, // or true
+			            'priority' => false, // or true
+			        ],
+
+			        [
+			            'phone' => '6285288886853',
+			            'message' => 'try message 2',
+			            'secret' => false, // or true
+			            'priority' => false, // or true
+			        ],
+
+			    ],
+			];
+			// json_encode($payload);
+			// exit();
+			
+			curl_setopt($curl, CURLOPT_HTTPHEADER,
+			    array(
+			        "Authorization: $token",
+			        "Content-Type: application/json"
+			    )
+			);
+			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($payload) );
+			curl_setopt($curl, CURLOPT_URL, "https://wablas.com/api/v2/send-bulk/text");
+			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+			$result = curl_exec($curl);
+			curl_close($curl);
+			
+			echo "<pre>";
+			print_r($result);
+
+            // $curl = curl_init();
+            // $token = "3PT7MarvSGrLFYBWfDefa5rQCagjpWsBhjchS6etlp0n6FLU9oAPKOGpNawOzeO1";
+            // $data = [
+            //     'phone' => "$telepon",
+            //     'message' => "$message",
+            // ];
+
+            // curl_setopt($curl, CURLOPT_HTTPHEADER,
+            //     array(
+            //         "Authorization: $token",
+            //     )
+            // );
+            // curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+            // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            // curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+            // curl_setopt($curl, CURLOPT_URL, "https://kacangan.wablas.com/api/send-message");
+            // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+            // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+            // $result = curl_exec($curl);
+            // curl_close($curl);
+            // echo "<pre>";
+            // print_r($result);
+
+        // }
 
 
-        }
     }
 
 	function wa($telepon,$message){

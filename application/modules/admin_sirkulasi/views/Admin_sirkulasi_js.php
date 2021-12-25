@@ -140,8 +140,7 @@
         $("#detail_nim").hide();
         $(".range_awal").hide();
         Tanggal = new Date().getDate();
-        tlg2 = new Date().getDate()+7;
-        Bulan = new Date().getMonth();
+        Bulan = <?php echo date("m") ?>;
         Tahun = new Date().getFullYear();
         Jam = new Date().getHours();
         Menit = new Date().getMinutes();

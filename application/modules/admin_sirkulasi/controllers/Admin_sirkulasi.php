@@ -60,7 +60,7 @@ class Admin_sirkulasi extends Admin_Controller {
          // echo "as ".$jarak->days;
          if ($jarak->days == 1) {
             $curl = curl_init();
-            $token = "3PT7MarvSGrLFYBWfDefa5rQCagjpWsBhjchS6etlp0n6FLU9oAPKOGpNawOzeO1";
+            $token = "vPDwq2Xv4sCpjlklwbpVEdlOztUXFR4KBiiiSHh72Vbn3th2Y0vBnuLe33frEwwS";
             $data = [
                 'phone' => "$telepon",
                 'message' => "$message",
