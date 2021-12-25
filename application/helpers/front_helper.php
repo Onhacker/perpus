@@ -16,6 +16,22 @@ function tahun_view($tgl){
 	return $tahun;       
 }
 
+function format_telpon($no_telpon){
+    $angka_awal = substr($no_telpon,0,1);
+    if ($angka_awal==0){
+        $telpon = "62".substr($no_telpon,1,15);
+    }elseif ($angka_awal=='62'){
+        $telpon = substr($no_telpon,0,15);
+    }elseif ($angka_awal=='6'){
+        $telpon = "62".substr($no_telpon,1,15);
+    }elseif ($angka_awal!='0'){
+        $telpon = "62".substr($no_telpon,0,15);
+    }else{
+        $telpon = substr($no_telpon,0,15);
+    }
+    return $telpon; 
+}
+
 function bulan_view_only($tgl){
 	$tmp = explode("-", $tgl);
 	$bln = intval($tmp[1]);

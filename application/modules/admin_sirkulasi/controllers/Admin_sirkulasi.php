@@ -31,6 +31,60 @@ class Admin_sirkulasi extends Admin_Controller {
          echo "<br>".$d->judul_buku."<br>";
     }
 
+    function wa(){
+         $this->db->limit(1);
+         $this->db->where("status", "1");
+         $this->db->where("tgl_dikembalikan", "0000-00-00 00:00:00");
+         $x = $this->db->get("sirkulasi");
+         $d = $x->row();
+        //   echo "<br>".$d->judul_buku."<br>";
+        // echo $this->db->last_query();
+         $this->db->where("nim",$d->nim);
+         $this->db->select("no_telp")->from("users");
+         $t = $this->db->get()->row();
+         // echo $this->db->last_query();
+         $telepon = format_telpon($t->no_telp);
+
+         $b = explode(" ", $d->tgl_pengembalian);
+         $tgl_pengembalian = flipdate($b[0])." ".$b[1];
+
+         $tgl1 = new DateTime($d->tgl_pengembalian);
+         $tgl2 = new DateTime(date("Y-m-d H:i:s"));
+         $jarak = $tgl2->diff($tgl1);
+
+         $this->db->where("id_identitas", "1");
+         $web = $this->db->get("identitas")->row();
+
+         $message = "Halo ".$d->nama_mahasiswa." Member ".$web->nama_website.". Anda memiliki pinjaman buku yang harus dikembalikan pada tanggal *".($tgl_pengembalian)."* yang berjudul *".$d->judul_buku."*";
+         echo "as ".$jarak->days;
+         if ($jarak->days == 1) {
+            $curl = curl_init();
+            $token = "3PT7MarvSGrLFYBWfDefa5rQCagjpWsBhjchS6etlp0n6FLU9oAPKOGpNawOzeO1";
+            $data = [
+                'phone' => "$telepon",
+                'message' => "$message",
+            ];
+
+            curl_setopt($curl, CURLOPT_HTTPHEADER,
+                array(
+                    "Authorization: $token",
+                )
+            );
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+            curl_setopt($curl, CURLOPT_URL, "https://kacangan.wablas.com/api/send-message");
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+            $result = curl_exec($curl);
+            curl_close($curl);
+            echo "<pre>";
+            print_r($result);
+
+
+        }
+    }
+
     function notif(){
         $this->load->library("email");
 
