@@ -139,6 +139,23 @@
         $("#btnshownim").hide();
         $("#detail_nim").hide();
         $(".range_awal").hide();
+        Tanggal = new Date().getDate();
+        tlg2 = new Date().getDate()+7;
+        Bulan = new Date().getMonth();
+        Tahun = new Date().getFullYear();
+        Jam = new Date().getHours();
+        Menit = new Date().getMinutes();
+        Detik = new Date().getSeconds();
+
+
+        $("#range_awal").flatpickr({
+            enableTime:!0,
+            dateFormat:"d-m-Y H:i:S",
+            autoclose:"true",
+            mode :"range",
+            inline: true,
+            defaultDate: [Tanggal+"-"+Bulan+"-"+Tahun+" "+Jam+" : "+Menit+" : "+Detik, Tanggal+"-"+Bulan+"-"+Tahun+" "+Jam+" : "+Menit+" : "+Detik]
+        })
         $('#full-width-modal').modal('show'); 
         $('.mymodal-title').text('Tambah Data'); 
         show_dialog('id_buku');
