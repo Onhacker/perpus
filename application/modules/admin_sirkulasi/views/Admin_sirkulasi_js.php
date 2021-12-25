@@ -68,6 +68,7 @@
                 {"data" : "range"},
                 
                 {"data" : "status"},               
+                {"data" : "wa"},               
             ],
 
             "order": [],
@@ -194,21 +195,44 @@
     }
 
     function sel(id) {
+        // alert(id);
         loader();
         $.ajax({
-                url : "<?php echo site_url(strtolower($controller).'/edit')?>/" + id,
-                type: "GET",
-                dataType: "JSON",
-                success: function(data) {
-                    Swal.close();
-                    $('#deskripsix').text(data.deskripsi);
-                    $('#full-width-modal-des').modal('show'); 
-                    $('.mymodal-title').html('Deskripsi <code>'+ data.judul_sirkulasi+'</code>'); 
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert('Error get data from ajax');
-                }
-            });
+            url : "<?php echo site_url(strtolower($controller).'/wa')?>/" + id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(result){
+                Swal.close();
+                // console.log(result);
+                // obj = $.parseJSON(result);
+                if (result.success == false ){
+                    swal.fire({   
+                        title: result.title,   
+                        type: "error", 
+                        html: result.pesan,
+                        allowOutsideClick: false,
+                        confirmButtonClass: "btn btn-confirm mt-2"   
+                    });
+                    return false;
+                } else {
+                    Swal.fire({
+                        title: result.title,  
+                        html: result.pesan,   
+                        type: "success",
+                        allowOutsideClick: false,
+                        confirmButtonClass: "btn btn-confirm mt-2"
+                    });
+
+                    $("#full-width-modal").modal("hide"); 
+                    reload_table();
+                }   
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("fucks");
+            }
+        });
+
+      
     }
 
     function simpan(){

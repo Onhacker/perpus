@@ -31,8 +31,9 @@ class Admin_sirkulasi extends Admin_Controller {
          echo "<br>".$d->judul_buku."<br>";
     }
 
-    function wa(){
+    function wa($nim){
          $this->db->limit(1);
+         $this->db->where("nim",$nim);
          $this->db->where("status", "1");
          $this->db->where("tgl_dikembalikan", "0000-00-00 00:00:00");
          $x = $this->db->get("sirkulasi");
@@ -56,7 +57,7 @@ class Admin_sirkulasi extends Admin_Controller {
          $web = $this->db->get("identitas")->row();
 
          $message = "Halo ".$d->nama_mahasiswa." Member ".$web->nama_website.". Anda memiliki pinjaman buku yang harus dikembalikan pada tanggal *".($tgl_pengembalian)."* yang berjudul *".$d->judul_buku."*";
-         echo "as ".$jarak->days;
+         // echo "as ".$jarak->days;
          if ($jarak->days == 1) {
             $curl = curl_init();
             $token = "3PT7MarvSGrLFYBWfDefa5rQCagjpWsBhjchS6etlp0n6FLU9oAPKOGpNawOzeO1";
@@ -78,73 +79,29 @@ class Admin_sirkulasi extends Admin_Controller {
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
             $result = curl_exec($curl);
             curl_close($curl);
-            echo "<pre>";
-            print_r($result);
+            $res = 1;
+            // echo "<pre>";
+            // print_r($result);
+             if($res) {    
+                $ret = array("success" => true,
+                    "title" => "Berhasil",
+                    "pesan" =>  "Wa Berhasil Dikirm");
+            } else {
+                $ret = array("success" => false,
+                    "title" => "Gagal",
+                    "pesan" => "Wa gagal dikirim");
+            }
 
-
+           
+        } else {
+             $ret = array("success" => false,
+                    "title" => "Gagal",
+                    "pesan" => "Wa gagal dikirim");
         }
+
+         echo json_encode($ret);
     }
 
-    function notif(){
-        $this->load->library("email");
-
-        $this->db->limit(1);
-        $this->db->where("status", "1");
-        $x = $this->db->get("sirkulasi");
-        $d = $x->row();
-         // echo "<br>".$d->judul_buku."<br>";
-        // echo $this->db->last_query();
-        foreach($x->result() as $row):
-
-            // echo "<br>".$row->judul_buku."<br>";
-
-        $b = explode(" ", $row->tgl_pengembalian);
-        $tgl_pengembalian = flipdate($b[0])." ".$b[1];
-
-        $tgl1 = new DateTime($row->tgl_pengembalian);
-        $tgl2 = new DateTime(date("Y-m-d H:i:s"));
-        $jarak = $tgl2->diff($tgl1);
-
-        // if ($jarak->days == 1) {
-                // set pengirim
-            $this->db->where("id_identitas", "1");
-            $web = $this->db->get("identitas")->row();
-
-                // isi body pesan 
-            $data["title"] = "Reset Password";
-           echo  $data["p1"] = "Hai ".$row->nama_mahasiswa.". Anda masih ada buku yang belum Dikembalikan";
-           echo  $data["p2"] = " Judul Buku ".$row->judul_buku." dengan batas tanggal pengembalian ". tgl_view($tgl_pengembalian) ;
-            $data["btn"] = "Kunjungi web";
-            $data["link_reset"] = " ";
-            $data["web"] = "<a href=".$web->url.">".$web->nama_website."</a>";
-                // end of isi body
-
-            $email                  = $row->email;
-            $subject                = "Pengembalian Buku ".$row->judul_buku;
-            $this->email->from($web->email, $web->nama_website);
-            // echo $web->email;
-            $this->email->to($email);
-            $this->email->cc('');
-            $this->email->bcc('');
-            $this->email->subject($subject);
-            $body = $this->load->view('password/notif_mail_template.php',$data,TRUE);
-            $this->email->message($body);  
-            $this->email->set_mailtype("html");
-            $this->email->send();
-
-            $config['protocol'] = 'sendmail';
-            $config['mailpath'] = '/usr/sbin/sendmail';
-            $config['charset'] = 'utf-8';
-            $config['wordwrap'] = TRUE;
-            $config['mailtype'] = 'html';
-            $res = $this->email->initialize($config);
-            endforeach;
-           // echo  $rules = "Link Reset Password telah dikirim ke Email ". $row->email." Silahkan cek inbox atau spam";
-
-        // }
-
-        // echo json_encode($ret);
-    }
 	function get_data(){  
         $list = $this->dm->get_data();
         $data = array();
@@ -172,6 +129,11 @@ class Admin_sirkulasi extends Admin_Controller {
             $tgl2 = new DateTime(date("Y-m-d H:i:s"));
             $jarak = $tgl2->diff($tgl1);
 
+            if ($jarak->days == 1 and $res->status == 1) {
+                $row["wa"] = "<a class = 'btn btn-xs btn-success' href='#' onclick='sel(".$res->nim.") '>Kirim Wa</a>";
+            } else {
+                $row["wa"] = "";
+            }
             // echo $jarak->d;
             if ($res->status == 0) {      
                 $jarak = '<code class="badge badge-success">Peminjaman Selesai</code>' ;
@@ -183,6 +145,7 @@ class Admin_sirkulasi extends Admin_Controller {
                 }
             }
             
+           
 
 
             $row["range"] = '<code class="badge badge-primary">'.$row["tgl_peminjaman"].'<br>sampai<br>'.$row["tgl_pengembalian"].'</code><br>'.$jarak;

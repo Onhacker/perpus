@@ -53,6 +53,7 @@
                             <th>Masa Pinjam</th>
                             
                             <th>Status</th>              
+                            <th>Kirim Notif</th>              
                         </tr>
                     </thead>
                 </table>

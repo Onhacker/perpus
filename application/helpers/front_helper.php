@@ -16,6 +16,18 @@ function tahun_view($tgl){
 	return $tahun;       
 }
 
+function flipdate($tanggal){
+    if(empty($tanggal)) {
+        return "";
+    }
+    $tanggal = substr($tanggal, 0,10);
+    $x = explode("-", $tanggal);
+    $x[0] = isset($x[0])?$x[0]:"0";
+    $x[1] = isset($x[1])?$x[1]:"0";
+    $x[2] = isset($x[2])?$x[2]:"0";
+    return $x[2]."-".$x[1]."-".$x[0];
+}
+
 function format_telpon($no_telpon){
     $angka_awal = substr($no_telpon,0,1);
     if ($angka_awal==0){
