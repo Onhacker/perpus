@@ -22,6 +22,7 @@ class Home extends Onhacker_Controller {
 		$telepon = "085288886853";
 		$message = "tes kirim wa";
 		$curl = curl_init();
+				$token = "";
                 $data = [
                     'phone' => "$telepon",
                     'message' => "$message",
