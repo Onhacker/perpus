@@ -34,11 +34,24 @@ class Admin_sirkulasi extends Admin_Controller {
     function wa($nim){
         $n = (date("Y-m-d H:i:s"));
          // $this->db->limit(1);
-         $this->db->where("datediff(tgl_pengembalian, '$n') = 1");
+        // $this->db->query("SELECT *, (TIMESTAMPDIFF(DAY,NOW(),tgl_pengembalian)) as hari,
+        //    (TIMESTAMPDIFF(HOUR,NOW(),tgl_pengembalian))%24 as jam,
+        //    (TIMESTAMPDIFF(minute,NOW(),tgl_pengembalian))%60 as menit
+        //    FROM `sirkulasi`
+        //    WHERE (TIMESTAMPDIFF(DAY,NOW(),tgl_pengembalian)) = 1
+        //    and `nim` = '1632042011'
+        //    AND `status` = '1'
+        //    AND `tgl_dikembalikan` = '0000-00-00 00:00:00'");
+
+         $this->db->select("*, (TIMESTAMPDIFF(DAY,NOW(),tgl_pengembalian)) as hari,
+           (TIMESTAMPDIFF(HOUR,NOW(),tgl_pengembalian))%24 as jam,
+           (TIMESTAMPDIFF(minute,NOW(),tgl_pengembalian))%60 as menit");
+         $this->db->from("sirkulasi");
+         $this->db->where("(TIMESTAMPDIFF(DAY,NOW(),tgl_pengembalian)) = 1");
          $this->db->where("nim",$nim);
          $this->db->where("status", "1");
          $this->db->where("tgl_dikembalikan", "0000-00-00 00:00:00");
-         $x = $this->db->get("sirkulasi");
+         $x = $this->db->get();
          $d = $x->row();
         //   echo "<br>".$d->judul_buku."<br>";
         // echo $this->db->last_query();
@@ -61,7 +74,7 @@ class Admin_sirkulasi extends Admin_Controller {
 
          $message = "Halo ".$d->nama_mahasiswa." Member ".$web->nama_website.". Anda memiliki pinjaman buku yang harus dikembalikan pada tanggal *".($tgl_pengembalian)."* yang berjudul *".$d->judul_buku."*";
          // echo "as ".$jarak->days;
-         if ($jarak->days == 1) {
+         if ($jarak->days == $d->hari) {
             $curl = curl_init();
             $token = "vPDwq2Xv4sCpjlklwbpVEdlOztUXFR4KBiiiSHh72Vbn3th2Y0vBnuLe33frEwwS";
             $data = [
@@ -88,7 +101,7 @@ class Admin_sirkulasi extends Admin_Controller {
              if($res) {    
                 $ret = array("success" => true,
                     "title" => "Berhasil",
-                    "pesan" =>  "Wa Berhasil Dikirm");
+                    "pesan" =>  "Wa Berhasil Dikirm ke nomor ".$telepon." an ". $d->nama_mahasiswa);
             } else {
                 $ret = array("success" => false,
                     "title" => "Gagal",
