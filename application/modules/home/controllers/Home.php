@@ -23,10 +23,15 @@ class Home extends Onhacker_Controller {
 			$this->db->where("id_identitas", "1");
          $web = $this->db->get("identitas")->row();
          // $this->db->limit(1);
-         $this->db->where("datediff(tgl_pengembalian, '$n') = 1");
+         $this->db->select("*, (TIMESTAMPDIFF(DAY,NOW(),tgl_pengembalian)) as hari,
+           (TIMESTAMPDIFF(HOUR,NOW(),tgl_pengembalian))%24 as jam,
+           (TIMESTAMPDIFF(minute,NOW(),tgl_pengembalian))%60 as menit");
+         $this->db->from("sirkulasi");
+         $this->db->where("(TIMESTAMPDIFF(DAY,NOW(),tgl_pengembalian)) = 1");
+         $this->db->where("nim",$nim);
          $this->db->where("status", "1");
          $this->db->where("tgl_dikembalikan", "0000-00-00 00:00:00");
-         $x = $this->db->get("sirkulasi");
+         $x = $this->db->get();
          // $d = $x->row();
          // echo $this->db->last_query()."<br>";
      	foreach($x->result() as $d):

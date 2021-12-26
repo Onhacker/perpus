@@ -33,16 +33,7 @@ class Admin_sirkulasi extends Admin_Controller {
 
     function wa($nim){
         $n = (date("Y-m-d H:i:s"));
-         // $this->db->limit(1);
-        // $this->db->query("SELECT *, (TIMESTAMPDIFF(DAY,NOW(),tgl_pengembalian)) as hari,
-        //    (TIMESTAMPDIFF(HOUR,NOW(),tgl_pengembalian))%24 as jam,
-        //    (TIMESTAMPDIFF(minute,NOW(),tgl_pengembalian))%60 as menit
-        //    FROM `sirkulasi`
-        //    WHERE (TIMESTAMPDIFF(DAY,NOW(),tgl_pengembalian)) = 1
-        //    and `nim` = '1632042011'
-        //    AND `status` = '1'
-        //    AND `tgl_dikembalikan` = '0000-00-00 00:00:00'");
-
+         
          $this->db->select("*, (TIMESTAMPDIFF(DAY,NOW(),tgl_pengembalian)) as hari,
            (TIMESTAMPDIFF(HOUR,NOW(),tgl_pengembalian))%24 as jam,
            (TIMESTAMPDIFF(minute,NOW(),tgl_pengembalian))%60 as menit");
