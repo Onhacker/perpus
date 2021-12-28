@@ -32,7 +32,7 @@
 
                                <span><img src="<?php echo base_url('assets/images/').$rec->gambar ?>" alt="<?php echo base_url('assets/images/').$rec->gambar ?>" height="80"></span>
 
-                               <p class="text-muted mb-2 mt-2"><?php echo $rec->nama_website."<br>Kota ".ucwords(strtolower($rec->kabupaten)) ?></p>
+                               <p class="text-muted mb-2 mt-2"><?php echo $rec->nama_website."<br> ".ucwords(strtolower($rec->universitas)) ?></p>
                            </div>
 
                            <form id="frm" method="post" class="text-left">
