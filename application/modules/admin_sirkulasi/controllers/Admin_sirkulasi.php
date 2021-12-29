@@ -136,11 +136,22 @@ class Admin_sirkulasi extends Admin_Controller {
             $tgl2 = new DateTime(date("Y-m-d H:i:s"));
             $jarak = $tgl2->diff($tgl1);
 
-            if ($jarak->days == 1 and $res->status == 1) {
-                $row["wa"] = "<a class = 'btn btn-xs btn-success' href='#' onclick='sel(".$res->nim.") '>Kirim Wa</a>";
-            } else {
+            // if ($jarak->days == 1 and $res->status == 1) {
+            //     $row["wa"] = "<a class = 'btn btn-xs btn-success' href='#' onclick='sel(".$res->nim.") '>Kirim Wa</a>";
+            // } else {
+            //     $row["wa"] = "";
+            // }
+
+            if ($tgl2 > $tgl1) {
                 $row["wa"] = "";
+            } else {
+                 if ($jarak->days == 1 and $res->status == 1) {
+                $row["wa"] = "<a class = 'btn btn-xs btn-success' href='#' onclick='sel(".$res->nim.") '>Kirim Wa</a>";
+                } else {
+                    $row["wa"] = "";
+                }
             }
+
             // echo $jarak->d;
             if ($res->status == 0) {      
                 $jarak = '<code class="badge badge-success">Peminjaman Selesai</code>' ;
